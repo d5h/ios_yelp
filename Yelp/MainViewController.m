@@ -38,7 +38,8 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
         // You can register for Yelp API keys here: http://www.yelp.com/developers/manage_api_keys
         self.client = [[YelpClient alloc] initWithConsumerKey:kYelpConsumerKey consumerSecret:kYelpConsumerSecret accessToken:kYelpToken accessSecret:kYelpTokenSecret];
         
-        [self fetchBusinessesWithQuery:@"Restaurants" params:nil];
+        self.searchText = @"Restaurants";
+        [self fetchBusinessesWithQuery:self.searchText params:nil];
     }
     return self;
 }
@@ -112,7 +113,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
 - (void) fetchBusinessesWithQuery:(NSString *)query params:(NSDictionary *)params {
     [self.client searchWithTerm:query params:params success:^(AFHTTPRequestOperation *operation, id response) {
-        NSLog(@"response: %@", response);
+        //NSLog(@"response: %@", response);
         NSArray *businessDictionaries = response[@"businesses"];
         
         self.businesses = [Business businessesWithDictionaries:businessDictionaries];
