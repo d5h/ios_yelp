@@ -7,6 +7,7 @@
 //
 
 #import "Business.h"
+#import "Constants.h"
 
 @implementation Business
 
@@ -33,8 +34,7 @@
         
         self.numReviews = [dictionary[@"review_count"] integerValue];
         self.ratingImageUrl = dictionary[@"rating_img_url"];
-        float milesPerMeter = 0.000621371;
-        self.distance = [dictionary[@"distance"] integerValue] * milesPerMeter;
+        self.distance = [dictionary[@"distance"] integerValue] * MilesPerMeter;
     }
     
     return self;

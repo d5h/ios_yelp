@@ -80,6 +80,7 @@
 		5DC5B6F01A8FDB7C00BCAB73 /* SegmentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SegmentCell.h; sourceTree = "<group>"; };
 		5DC5B6F11A8FDB7C00BCAB73 /* SegmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentCell.m; sourceTree = "<group>"; };
 		5DC5B6F21A8FDB7C00BCAB73 /* SegmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentCell.xib; sourceTree = "<group>"; };
+		5DC5B6F51A8FE86A00BCAB73 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		8436EC1AAEE1439D997D29F7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		9DEC6D18C14F46F8AF2EA320 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -174,6 +175,7 @@
 				42FD6C5A18DC286B000BF2B9 /* AppDelegate.m */,
 				42FD6C5C18DC286B000BF2B9 /* Images.xcassets */,
 				42FD6C5118DC286B000BF2B9 /* Supporting Files */,
+				5DC5B6F51A8FE86A00BCAB73 /* Constants.h */,
 			);
 			path = Yelp;
 			sourceTree = "<group>";

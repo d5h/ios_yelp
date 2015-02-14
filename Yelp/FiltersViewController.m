@@ -9,6 +9,7 @@
 #import "FiltersViewController.h"
 #import "SwitchCell.h"
 #import "SegmentCell.h"
+#import "Constants.h"
 
 @interface FiltersViewController () <UITableViewDataSource, UITableViewDelegate, SwitchCellDelegate, SegmentCellDelegate>
 
@@ -17,8 +18,10 @@
 @property (nonatomic, strong) NSArray *categories;
 @property (nonatomic, strong) NSMutableSet *selectedCategories;
 @property (nonatomic, assign) NSInteger sortByFilter;
+@property (nonatomic, assign) NSInteger distanceFilter;
 
 @property (nonatomic, readonly) NSArray *sections;
+@property (nonatomic, readonly) NSArray *distances;
 
 - (void)initCategories;
 
@@ -61,7 +64,7 @@
 #pragma mark - Table view methods
 
 typedef enum {
-    SortBy, Categories
+    SortBy, Distance, Categories
 } SectionCodes;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -80,6 +83,8 @@ typedef enum {
     switch ([self.sections[indexPath.section][@"code"] integerValue]) {
         case SortBy:
             return [self tableView:tableView sortByCellForIndexPath:indexPath];
+        case Distance:
+            return [self tableView:tableView distanceCellForIndexPath:indexPath];
         case Categories:
             return [self tableView:tableView categoryCellForIndexPath:indexPath];
     }
@@ -101,13 +106,35 @@ typedef enum {
 #pragma mark - Segmenet cell delegate methods
 
 - (void)segmentCell:(SegmentCell *)cell didUpdate:(NSInteger)value {
-    self.sortByFilter = value;
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    switch (indexPath.section) {
+        case SortBy:
+            self.sortByFilter = value;
+            break;
+        case Distance: {
+            NSInteger segmentIndex = [cell.segmentControl selectedSegmentIndex];
+            NSInteger distance = [self.distances[segmentIndex][@"value"] integerValue];
+            self.distanceFilter = distance;
+            break;
+        }
+        default:
+            break;
+    }
 }
 
 #pragma mark - Private methods
 
+- (NSArray *)distances {
+    return @[@{@"name": @"Auto", @"value": @0 },
+             @{@"name": @"0.3 mi", @"value": @(0.3 / MilesPerMeter) },
+             @{@"name": @"1 mi", @"value": @(1 / MilesPerMeter) },
+             @{@"name": @"5 mi", @"value": @(5 / MilesPerMeter) },
+             @{@"name": @"20 mi", @"value": @(20 / MilesPerMeter) }];
+}
+
 - (NSArray *)sections {
     return @[@{@"code": @(SortBy), @"name": @"Sort by", @"rows": @1 },
+             @{@"code": @(Distance), @"name": @"Distance", @"rows": @1 },
              @{@"code": @(Categories), @"name": @"Categories", @"rows": @(self.categories.count) }];
 }
 
@@ -132,6 +159,18 @@ typedef enum {
     return cell;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView distanceCellForIndexPath:(NSIndexPath *)indexPath {
+    SegmentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SegmentCell"];
+    
+    [cell.segmentControl removeAllSegments];
+    for (int i = 0; i < self.distances.count; ++i) {
+        [cell.segmentControl insertSegmentWithTitle:self.distances[i][@"name"] atIndex:i animated:NO];
+    }
+    cell.delegate = self;
+    
+    return cell;
+}
+
 - (NSDictionary *)filters {
     NSMutableDictionary *filters = [NSMutableDictionary dictionary];
     
@@ -145,6 +184,10 @@ typedef enum {
     }
     
     [filters setObject:@(self.sortByFilter) forKey:@"sort"];
+    
+    if (self.distanceFilter > 0) {
+        [filters setObject:@(self.distanceFilter) forKey:@"radius_filter"];
+    }
     
     return filters;
 }
