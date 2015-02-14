@@ -17,11 +17,13 @@ NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
 NSString * const kYelpToken = @"uRcRswHFYa1VkDrGV6LAW2F8clGh5JHV";
 NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 
-@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate>
+@interface MainViewController () <UITableViewDataSource, UITableViewDelegate, FiltersViewControllerDelegate, UISearchBarDelegate>
 
 @property (nonatomic, strong) YelpClient *client;
 @property (nonatomic, strong) NSArray *businesses;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) NSDictionary *filters;
+@property (nonatomic, strong) NSString *searchText;
 
 - (void) fetchBusinessesWithQuery:(NSString *)query params:(NSDictionary *)params;
 
@@ -57,6 +59,11 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     self.title = @"Yelp";
     
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Filter" style:UIBarButtonItemStylePlain target:self action:@selector(onFilterButton)];
+    
+    UISearchBar *searchBar = [[UISearchBar alloc] init];
+    searchBar.delegate = self;
+    [searchBar sizeToFit];
+    self.navigationItem.titleView = searchBar;
 }
 
 - (void)didReceiveMemoryWarning
@@ -77,10 +84,19 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     return cell;
 }
 
+#pragma mark - Search bar delegate methods
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
+    self.searchText = searchBar.text;
+    [self fetchBusinessesWithQuery:self.searchText params:self.filters];
+    [searchBar resignFirstResponder];
+}
+
 #pragma mark - Filter delegate methods
 
 - (void)filtersViewController:(FiltersViewController *)filtersViewController didChangeFilters:(NSDictionary *)filters {
-    [self fetchBusinessesWithQuery:@"Restaurants" params:filters];
+    self.filters = filters;
+    [self fetchBusinessesWithQuery:self.searchText params:self.filters];
 }
 
 #pragma mark - Private methods
