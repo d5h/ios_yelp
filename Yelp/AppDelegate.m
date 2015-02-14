@@ -8,18 +8,27 @@
 
 #import "AppDelegate.h"
 #import "MainViewController.h"
+#import "RedNavigationController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [self customizeAppearance];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[MainViewController alloc] init]];
+    self.window.rootViewController = [[RedNavigationController alloc] initWithRootViewController:[[MainViewController alloc] init]];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+- (void)customizeAppearance {
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:196/255. green:18/255. blue:0 alpha:1]];
+    [[UINavigationBar appearance] setTintColor:[UIColor whiteColor]];
+    [[UISegmentedControl appearance] setTintColor:[UIColor lightGrayColor]];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

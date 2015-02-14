@@ -31,6 +31,7 @@
 		5DC5B6EF1A8EF32B00BCAB73 /* SwitchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DC5B6ED1A8EF32B00BCAB73 /* SwitchCell.xib */; };
 		5DC5B6F31A8FDB7C00BCAB73 /* SegmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC5B6F11A8FDB7C00BCAB73 /* SegmentCell.m */; };
 		5DC5B6F41A8FDB7C00BCAB73 /* SegmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5DC5B6F21A8FDB7C00BCAB73 /* SegmentCell.xib */; };
+		5DC5B6F81A9002E500BCAB73 /* RedNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DC5B6F71A9002E500BCAB73 /* RedNavigationController.m */; };
 		63E591F41F684901AF8C1C19 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9DEC6D18C14F46F8AF2EA320 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,8 @@
 		5DC5B6F11A8FDB7C00BCAB73 /* SegmentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SegmentCell.m; sourceTree = "<group>"; };
 		5DC5B6F21A8FDB7C00BCAB73 /* SegmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SegmentCell.xib; sourceTree = "<group>"; };
 		5DC5B6F51A8FE86A00BCAB73 /* Constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		5DC5B6F61A9002E500BCAB73 /* RedNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RedNavigationController.h; sourceTree = "<group>"; };
+		5DC5B6F71A9002E500BCAB73 /* RedNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RedNavigationController.m; sourceTree = "<group>"; };
 		8436EC1AAEE1439D997D29F7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		9DEC6D18C14F46F8AF2EA320 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,6 +131,8 @@
 				5DC5B6E61A8EE9A700BCAB73 /* FiltersViewController.h */,
 				5DC5B6E71A8EE9A700BCAB73 /* FiltersViewController.m */,
 				5DC5B6E81A8EE9A700BCAB73 /* FiltersViewController.xib */,
+				5DC5B6F61A9002E500BCAB73 /* RedNavigationController.h */,
+				5DC5B6F71A9002E500BCAB73 /* RedNavigationController.m */,
 			);
 			name = "View Controllers";
 			sourceTree = "<group>";
@@ -370,6 +375,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DC5B6E91A8EE9A700BCAB73 /* FiltersViewController.m in Sources */,
+				5DC5B6F81A9002E500BCAB73 /* RedNavigationController.m in Sources */,
 				5DC5B6EE1A8EF32B00BCAB73 /* SwitchCell.m in Sources */,
 				5DC5B6DF1A8D998F00BCAB73 /* Business.m in Sources */,
 				42FD6C5B18DC286B000BF2B9 /* AppDelegate.m in Sources */,

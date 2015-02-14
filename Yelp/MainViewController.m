@@ -11,6 +11,7 @@
 #import "Business.h"
 #import "BusinessCell.h"
 #import "FiltersViewController.h"
+#import "RedNavigationController.h"
 
 NSString * const kYelpConsumerKey = @"vxKwwcR_NMQ7WaEiQBK_CA";
 NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
@@ -107,7 +108,7 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
     
     vc.delegate = self;
     
-    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    UINavigationController *nvc = [[RedNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nvc animated:YES completion:nil];
 }
 

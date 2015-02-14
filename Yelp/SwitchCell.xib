@@ -21,7 +21,7 @@
                         </connections>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pnl-vk-iMr">
-                        <rect key="frame" x="8" y="13" width="42" height="21"/>
+                        <rect key="frame" x="24" y="13.5" width="42" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
@@ -31,7 +31,7 @@
                     <constraint firstAttribute="bottom" secondItem="z7t-Cl-bjx" secondAttribute="bottom" constant="8.5" id="U9G-Vm-zFf"/>
                     <constraint firstItem="z7t-Cl-bjx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="VZ0-wF-THI"/>
                     <constraint firstAttribute="trailing" secondItem="z7t-Cl-bjx" secondAttribute="trailing" constant="8" id="fMd-sJ-47X"/>
-                    <constraint firstItem="Pnl-vk-iMr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="vL6-jp-yNh"/>
+                    <constraint firstItem="Pnl-vk-iMr" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="vL6-jp-yNh"/>
                     <constraint firstAttribute="centerY" secondItem="Pnl-vk-iMr" secondAttribute="centerY" id="ySs-9g-ba5"/>
                 </constraints>
             </tableViewCellContentView>
