@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableSet *selectedCategories;
 @property (nonatomic, assign) NSInteger sortByFilter;
 @property (nonatomic, assign) NSInteger distanceFilter;
+@property (nonatomic, assign) BOOL dealFilter;
 
 @property (nonatomic, readonly) NSArray *sections;
 @property (nonatomic, readonly) NSArray *distances;
@@ -64,7 +65,7 @@
 #pragma mark - Table view methods
 
 typedef enum {
-    SortBy, Distance, Categories
+    SortBy, Distance, Deals, Categories
 } SectionCodes;
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -85,6 +86,8 @@ typedef enum {
             return [self tableView:tableView sortByCellForIndexPath:indexPath];
         case Distance:
             return [self tableView:tableView distanceCellForIndexPath:indexPath];
+        case Deals:
+            return [self tableView:tableView dealCellForIndexPath:indexPath];
         case Categories:
             return [self tableView:tableView categoryCellForIndexPath:indexPath];
     }
@@ -95,11 +98,17 @@ typedef enum {
 
 - (void)switchCell:(SwitchCell *)cell didUpdateValue:(BOOL)value {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    
-    if (value) {
-        [self.selectedCategories addObject:self.categories[indexPath.row]];
-    } else {
-        [self.selectedCategories removeObject:self.categories[indexPath.row]];
+    switch (indexPath.section) {
+        case Deals:
+            self.dealFilter = value;
+            break;
+        case Categories:
+            if (value) {
+                [self.selectedCategories addObject:self.categories[indexPath.row]];
+            } else {
+                [self.selectedCategories removeObject:self.categories[indexPath.row]];
+            }
+            break;
     }
 }
 
@@ -135,6 +144,7 @@ typedef enum {
 - (NSArray *)sections {
     return @[@{@"code": @(SortBy), @"name": @"Sort by", @"rows": @1 },
              @{@"code": @(Distance), @"name": @"Distance", @"rows": @1 },
+             @{@"code": @(Deals), @"name": @"Deals", @"rows": @1 },
              @{@"code": @(Categories), @"name": @"Categories", @"rows": @(self.categories.count) }];
 }
 
@@ -171,6 +181,16 @@ typedef enum {
     return cell;
 }
 
+- (UITableViewCell *)tableView:(UITableView *)tableView dealCellForIndexPath:(NSIndexPath *)indexPath {
+    SwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SwitchCell"];
+    
+    cell.on = self.dealFilter;
+    cell.titleLabel.text = @"";
+    cell.delegate = self;
+    
+    return cell;
+}
+
 - (NSDictionary *)filters {
     NSMutableDictionary *filters = [NSMutableDictionary dictionary];
     
@@ -184,6 +204,7 @@ typedef enum {
     }
     
     [filters setObject:@(self.sortByFilter) forKey:@"sort"];
+    [filters setObject:@(self.dealFilter) forKey:@"deals_filter"];
     
     if (self.distanceFilter > 0) {
         [filters setObject:@(self.distanceFilter) forKey:@"radius_filter"];
