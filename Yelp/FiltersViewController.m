@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSMutableSet *selectedCategories;
 @property (nonatomic, assign) NSInteger sortByFilter;
 @property (nonatomic, assign) NSInteger distanceFilter;
+@property (nonatomic, assign) NSInteger distanceFilterIndex;
 @property (nonatomic, assign) BOOL dealFilter;
 
 @property (nonatomic, readonly) NSArray *sections;
@@ -37,6 +38,8 @@
         self.selectedCategories = [NSMutableSet set];
         [self initCategories];
         self.sortByFilter = 0;
+        self.distanceFilter = 0;
+        self.distanceFilterIndex = 0;
     }
     
     return self;
@@ -121,8 +124,8 @@ typedef enum {
             self.sortByFilter = value;
             break;
         case Distance: {
-            NSInteger segmentIndex = [cell.segmentControl selectedSegmentIndex];
-            NSInteger distance = [self.distances[segmentIndex][@"value"] integerValue];
+            self.distanceFilterIndex = [cell.segmentControl selectedSegmentIndex];
+            NSInteger distance = [self.distances[self.distanceFilterIndex][@"value"] integerValue];
             self.distanceFilter = distance;
             break;
         }
@@ -165,6 +168,7 @@ typedef enum {
     [cell.segmentControl setTitle:@"Distance" forSegmentAtIndex:1];
     [cell.segmentControl setTitle:@"Highest Rated" forSegmentAtIndex:2];
     cell.delegate = self;
+    cell.segmentControl.selectedSegmentIndex = self.sortByFilter;
     
     return cell;
 }
@@ -177,6 +181,7 @@ typedef enum {
         [cell.segmentControl insertSegmentWithTitle:self.distances[i][@"name"] atIndex:i animated:NO];
     }
     cell.delegate = self;
+    cell.segmentControl.selectedSegmentIndex = self.distanceFilterIndex;
     
     return cell;
 }

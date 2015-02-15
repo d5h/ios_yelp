@@ -12,6 +12,7 @@
 #import "BusinessCell.h"
 #import "FiltersViewController.h"
 #import "RedNavigationController.h"
+#import "SVProgressHUD.h"
 
 NSString * const kYelpConsumerKey = @"vxKwwcR_NMQ7WaEiQBK_CA";
 NSString * const kYelpConsumerSecret = @"33QCvh5bIF5jIHR5klQr7RtBDhQ";
@@ -113,13 +114,16 @@ NSString * const kYelpTokenSecret = @"mqtKIxMIR4iBtBPZCmCLEb-Dz3Y";
 }
 
 - (void) fetchBusinessesWithQuery:(NSString *)query params:(NSDictionary *)params {
+    [SVProgressHUD show];
     [self.client searchWithTerm:query params:params success:^(AFHTTPRequestOperation *operation, id response) {
+        [SVProgressHUD dismiss];
         //NSLog(@"response: %@", response);
         NSArray *businessDictionaries = response[@"businesses"];
         
         self.businesses = [Business businessesWithDictionaries:businessDictionaries];
         [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [SVProgressHUD dismiss];
         NSLog(@"error: %@", [error description]);
     }];
 }
